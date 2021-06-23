@@ -25,6 +25,7 @@ window.addEventListener('DOMContentLoaded', () => {
     document.querySelector('#quizBlock').style.display = 'block';
     start.style.display = 'none';
   });
+  start.addEventListener('click', parentClock);
   // quizArray QUESTIONS & ANSWERS
   // q = QUESTION, o = OPTIONS, a = CORRECT ANSWER
   // Basic ideas from https://code-boxx.com/simple-javascript-quiz/
@@ -58,7 +59,7 @@ window.addEventListener('DOMContentLoaded', () => {
         ];
 
         // function to Display the quiz questions and answers from the object
-        let timecount = 0;
+
         const displayQuiz = () => {
           const quizWrap = document.querySelector('#quizWrap');
           let quizDisplay = '';
@@ -74,28 +75,30 @@ window.addEventListener('DOMContentLoaded', () => {
             quizWrap.innerHTML = quizDisplay;
           });
           //console.log(quizDisplay);
-          //score = 0;              
-          parentClock()
+          //score = 0;           
         };
 
       // Timer function
       function parentClock(){
-        let timePrint = 0;
-        let tempStore = 0;
-        setInterval(function timerClock(){                
-          for(let counter = 0; counter < 61; counter++){
+        let timePrint = 0;        
+        let counter =0;
+       
+        let timerInt = setInterval(function timerClock(){                
+          while(counter < 61){
             if(counter<10)
             {timePrint = `00:0${counter}`;
-            console.log(timePrint); }
+             }
             else if(counter < 60 )
             {timePrint = `00:${counter}`;} 
-            else {calculateScore();}
+            else { timePrint = `01:00`;
+              calculateScore();
+            clearInterval(timerInt);}
             counter += 1; 
             //console.log(timePrint);
-            return document.querySelector('#time').innerHTML = timePrint;             
+            return document.querySelector('#time').innerHTML = timePrint;
+            console.log(timePrint);             
         }
-        }, 1000);
-        console.log(tempStore);
+        }, 1000);        
          
         
         
